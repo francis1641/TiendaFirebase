@@ -20,14 +20,8 @@ export const db = firebase
   export default {
     auth: firebase.auth(),
     login() {
-      const provider = new firebase.auth.GoogleAuthProvider();
- /*     LOGIN CON FACEBOOK    NO FUNCIONA      MAL
-      var provider1 = new firebase.auth.FacebookAuthProvider();
-      firebase.auth().signInWithPopup(provider1)
-      .then(function(result) {
-        console.log(result);
-      })
-*/
+
+      const provider = new firebase.auth.FacebookAuthProvider();
       firebase.auth().signInWithPopup(provider)
       .then(function(result) {
         console.log(result);
@@ -39,6 +33,24 @@ export const db = firebase
         const credential = error.credential;
         console.log(errorCode, errorMessage, email, credential);
         })
+ /*     LOGIN CON FACEBOOK    NO FUNCIONA      MAL
+      var provider1 = new firebase.auth.FacebookAuthProvider();
+      firebase.auth().signInWithPopup(provider1)
+      .then(function(result) {
+        console.log(result);
+      })
+
+      firebase.auth().signInWithPopup(provider)
+      .then(function(result) {
+        console.log(result);
+      })
+      .catch(function(error){
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        const email = error.email;
+        const credential = error.credential;
+        console.log(errorCode, errorMessage, email, credential);
+        })*/
     },
     logout() {
       firebase.auth().signOut()

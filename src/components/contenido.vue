@@ -2,7 +2,7 @@
 
     <div>
     <div>
-        <button v-if="!authenticated" @click="abrirSesion">Login</button>
+        <button v-if="!authenticated" @click="abrirSesion()">Abrir sesion con Google</button>
         <div v-if="authenticated">
             <button @click="cerrarSesion">Logout</button>
             <h1>Hi {{ firstName }}!</h1>
@@ -26,7 +26,7 @@ export default {
       juegos: [],
       user:{
         loggedIn: false,
-        data:{}
+        data:{},
       }
     }
   },

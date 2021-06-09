@@ -1,14 +1,16 @@
 <template>
   <div id="app">
-    <navbar/>
-    <contenido/>
+    <div id="nav">
+      <navbar/>
+      <contenido/>
+    </div>
   </div>
 </template>
+
 
 <script>
 import navbar from './components/navbar.vue'
 import contenido from './components/contenido.vue'
-
 export default {
   name: 'App',
   components: {
@@ -25,6 +27,18 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+
+#nav {
+  padding: 30px;
+}
+
+#nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+#nav a.router-link-exact-active {
+  color: #42b983;
 }
 </style>
