@@ -1,17 +1,10 @@
 <template>
 
     <div>
-    <div>
-        <button v-if="!authenticated" @click="abrirSesion()">Abrir sesion con Google</button>
-        <div v-if="authenticated">
-            <button @click="cerrarSesion">Logout</button>
-            <h1>Hi {{ firstName }}!</h1>
-        </div>
-    </div>  
+
     <div class="contenido">
         <card v-for="game in juegos" v-bind:juego="game" v-bind:key="game.id"/>
       </div>
-
 
     </div>
 </template>

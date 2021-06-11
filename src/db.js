@@ -21,7 +21,7 @@ export const db = firebase
     auth: firebase.auth(),
     login() {
 
-      const provider = new firebase.auth.FacebookAuthProvider();
+      const provider = new firebase.auth.GoogleAuthProvider();
       firebase.auth().signInWithPopup(provider)
       .then(function(result) {
         console.log(result);

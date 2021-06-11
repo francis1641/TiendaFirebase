@@ -2,7 +2,7 @@
   <div id="app">
     <div id="nav">
       <navbar/>
-      <contenido/>
+      <router-view/>
     </div>
   </div>
 </template>
@@ -10,12 +10,11 @@
 
 <script>
 import navbar from './components/navbar.vue'
-import contenido from './components/contenido.vue'
+
 export default {
   name: 'App',
   components: {
-    navbar,
-    contenido
+    navbar
   }
 }
 </script>
@@ -29,8 +28,10 @@ export default {
   color: #2c3e50;
 }
 
+body{
+  margin:0px;
+}
 #nav {
-  padding: 30px;
 }
 
 #nav a {
