@@ -1,7 +1,6 @@
 <template>
 
     <div>
-
     <div class="contenido">
         <card v-for="game in juegos" v-bind:juego="game" v-bind:key="game.id"/>
       </div>

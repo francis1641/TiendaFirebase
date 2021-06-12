@@ -19,10 +19,32 @@ export const db = firebase
 
   export default {
     auth: firebase.auth(),
-    login() {
 
-      const provider = new firebase.auth.GoogleAuthProvider();
-      firebase.auth().signInWithPopup(provider)
+
+    loginCorreo(correo, contra){
+        var email = correo;
+        var password = contra;
+        firebase.auth().signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+        var user = userCredential.user;
+        console.log(user);
+        })
+      .catch(function(error){
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      const email = error.email;
+      const credential = error.credential;
+      console.log(errorCode, errorMessage, email, credential);
+      })
+      if(this.email== "cenitfran123@gmail.com"){
+        console.log("He llegado al correo")
+      }
+    },
+
+
+    loginGoogle() {
+      const providerGoogle = new firebase.auth.GoogleAuthProvider();
+      firebase.auth().signInWithPopup(providerGoogle)
       .then(function(result) {
         console.log(result);
       })
@@ -33,14 +55,11 @@ export const db = firebase
         const credential = error.credential;
         console.log(errorCode, errorMessage, email, credential);
         })
- /*     LOGIN CON FACEBOOK    NO FUNCIONA      MAL
-      var provider1 = new firebase.auth.FacebookAuthProvider();
-      firebase.auth().signInWithPopup(provider1)
-      .then(function(result) {
-        console.log(result);
-      })
+    },
 
-      firebase.auth().signInWithPopup(provider)
+    loginFacebook(){
+      const providerFacebook = new firebase.auth.FacebookAuthProvider();
+      firebase.auth().signInWithPopup(providerFacebook)
       .then(function(result) {
         console.log(result);
       })
@@ -50,8 +69,9 @@ export const db = firebase
         const email = error.email;
         const credential = error.credential;
         console.log(errorCode, errorMessage, email, credential);
-        })*/
+        })
     },
+
     logout() {
       firebase.auth().signOut()
       .then(function() {})
@@ -60,11 +80,7 @@ export const db = firebase
     }
 }
 
-
-// Export types that exists in Firestore
-// This is not always necessary, but it's used in other examples
 const { Timestamp, GeoPoint } = firebase.firestore
 export { Timestamp, GeoPoint }
 
-// if using Firebase JS SDK < 5.8.0
 db.settings({ timestampsInSnapshots: true })

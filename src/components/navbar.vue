@@ -1,18 +1,15 @@
 <template>
         <div id="nav">
           <ul class="nav--links">
-           <li><router-link to="/contenido">Contenido</router-link></li>
-          <li><router-link to="/navbar">Navbar</router-link></li>
+            <li><router-link to="/contenido">Contenido</router-link></li>
+            <li><router-link to="/navbar">Navbar</router-link></li>
             <li><router-link to="/carrito">Carrito</router-link></li>
-            <li><a href="#">Login</a></li>
-              <button v-if="!authenticated" @click="abrirSesion()">Abrir sesion con Google</button>
-          <div v-if="authenticated">
-            <button @click="cerrarSesion">Logout</button>
-            <h1>Hi {{ firstName }}!</h1>
-          </div>
+            <li v-if="administrador"><router-link to="/admin">Panel de administracion</router-link></li>
+            <li><router-link to="/login">Iniciar sesion</router-link></li>
+            <div v-if="authenticated" class="sesion">
+              <button @click="cerrarSesion">Logout</button>
+            </div>
           </ul>
-
-
         </div>
   
 </template>
@@ -23,6 +20,7 @@ import autentificacion from '../db'
 export default {
   data() {
     return {
+      administrador:false,
       juegos: [],
       user:{
         loggedIn: false,
@@ -44,12 +42,15 @@ export default {
       })
   },
     methods:{
-    abrirSesion(){
-        autentificacion.login();
-    },
     cerrarSesion(){
-        autentificacion.logout()
-    }
+        autentificacion.logout();
+        this.$notify({
+          group: 'foo',
+          title: 'Important message',
+          text: 'Hello user! This is a notification!'
+        });
+    },
+
   },
   computed:{
     authenticated(){
@@ -60,7 +61,7 @@ export default {
           return this.user.data.displayName
       }
           return null
-        }
+    },
   }
 }
 </script>
@@ -68,12 +69,27 @@ export default {
 
 <style scoped>
 .nav{
-}
+  display: flex;
+  background-color: black;
 
+}
 .nav--links{
     background-color: black;
   list-style: none;
   display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.sesion{
+  display: flex;
+  align-items: center;
+}
+
+button{
+  height: 2rem;
+  padding: .1rem .1rem;
+  margin: .3rem;
 }
 
 .nav--links li{
