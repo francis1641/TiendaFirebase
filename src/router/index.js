@@ -5,6 +5,8 @@ import navbar from '../components/navbar.vue'
 import carrito from '../components/carrito.vue'
 import login from '../components/modal.vue'
 import admin from '../components/admin.vue'
+import about from '../components/about.vue'
+import prueba from '../components/prueba.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -32,9 +34,19 @@ const routes = [
     component: carrito
   },
   {
+    path: '/about',
+    name: 'about',
+    component: about
+  },
+  {
     path: '/admin',
     name: 'admin',
     component: admin
+  },
+  {
+    path: '/prueba',
+    name: 'prueba',
+    component: prueba
   }
 ]
 

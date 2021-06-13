@@ -1,11 +1,51 @@
 <template>
-    <div>
-        
-
-    </div>
+    <div class="contenido">
+        <h3>El precio total es {{precioFinal}}</h3>
+        <card v-for="articulo in carrito" v-bind:carritoart="articulo" v-bind:key="articulo.id"/>
+      </div>
 
 </template>
 
-<style scoped>
+<script>
+import { db } from '../db'
+import card from './cardcarrito.vue'
 
+export default {
+  data() {
+    return {
+      carrito: [],
+      precioFinal:10,
+      mostrar:true,
+    }
+  },
+  beforeMount: function(){
+    this.mostrar=true;
+  },
+  mounted:function(){
+    this.mostrar=false;
+  },
+  components:{
+      card
+  },
+
+  firestore: {
+    carrito: db.collection('Carrito'),
+  },
+  computed:{
+      precioTotal(){
+          return {
+              
+          }
+          
+      }
+  }
+}
+
+</script>
+
+
+<style scoped>
+.contenido{
+    display: flex;
+}
 </style>

@@ -20,13 +20,29 @@ export const db = firebase
   export default {
     auth: firebase.auth(),
 
+    crearUsuario(correo,contra) {
+      let email = correo;
+      let password = contra;
+      firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          let user = userCredential.user;
+          console.log(user);
+        })
+        .catch((error) => {
+          let errorCode = error.code;
+          let errorMessage = error.message;
+          console.log(errorCode, errorMessage); 
+        });
+    },
+
 
     loginCorreo(correo, contra){
-        var email = correo;
-        var password = contra;
+
+        let email = correo;
+        let password = contra;
         firebase.auth().signInWithEmailAndPassword(email, password)
         .then((userCredential) => {
-        var user = userCredential.user;
+        let user = userCredential.user;
         console.log(user);
         })
       .catch(function(error){
@@ -36,9 +52,6 @@ export const db = firebase
       const credential = error.credential;
       console.log(errorCode, errorMessage, email, credential);
       })
-      if(this.email== "cenitfran123@gmail.com"){
-        console.log("He llegado al correo")
-      }
     },
 
 
@@ -46,7 +59,8 @@ export const db = firebase
       const providerGoogle = new firebase.auth.GoogleAuthProvider();
       firebase.auth().signInWithPopup(providerGoogle)
       .then(function(result) {
-        console.log(result);
+        let user= result.user;
+        console.log(user);
       })
       .catch(function(error){
         const errorCode = error.code;

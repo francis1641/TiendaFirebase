@@ -5,28 +5,46 @@
                     <p class="">{{juego.Descripcion}}</p>
                     <p class="">El precio es {{juego.Precio}}</p>
                     <p class="">Hay {{juego.Stock}} unidades</p>
-                    <button >Comprar</button>
+                    <button @click="addCarrito">Comprar</button>
+                    <input v-model="total" type="number" min="1" v-bind:max="juego.Stock">
+                    
     </div>
 
 </template>
 
 <script>
-
+import { db } from '../db'
 export default {
+
     name: 'contenido',
     props: ['juego'],
     methods:{
+        data() {
+            return {
+            }
+        },
+
+        addCarrito(){
+            db.collection("Carrito").doc("1").set({
+                nameArticulo: this.juego.Nombre,
+                Precio: this.juego.Precio,
+                Cantidad: this.total,
+            })
+            .then(() => {
+                console.log("Document successfully written!");
+            })
+            .catch((error) => {
+                console.error("Error writing document: ", error);
+            });
+
+        },
+
 /*        comprobarStock(){
             if(juego.Stock==0)
                 nostock=true;
         }*/
     },
-    /*data:{
-        displayModal:false,   
-        descripcion:'',
-        precio:'',
-        stock:''
-    }*/
+
 
 }
 </script>

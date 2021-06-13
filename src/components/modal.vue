@@ -6,12 +6,23 @@
      <button v-if="!authenticated" @click="abrirSesionFacebook">Login con Facebook</button>
      </div>
     <div>
-    <form action="" v-if="!authenticated">
+    <form v-if="!authenticated">
+      <h3>Inicia sesion aqui</h3>
       <p>Introduzca aqui su correo</p>
-      <input type="text"  v-model="correo1">
+      <input type="text"  v-model="correoinicio">
       <p>Introduzca aqui su contraseña</p>
-      <input type="password" v-model="contra1">
+      <input type="password" v-model="contrainicio">
       <input @click="abrirSesionCorreo" type="submit">
+    </form>
+
+
+    <form v-if="!authenticated">
+          <h3>Registrate aqui</h3>
+      <p>Introduzca aqui su correo</p>
+      <input type="text"  v-model="correocreacion">
+      <p>Introduzca aqui su contraseña</p>
+      <input type="password" v-model="contracreacion">
+      <input @click="crearSesionCorreo" type="submit">
     </form>
     </div>
   </div>
@@ -22,13 +33,13 @@
 import autentificacion from '../db'
 export default{
 
-
-
-
     data() {
         return {
-          correo1: '',
-          contra1:'',
+          correoinicio: '',
+          contrainicio:'',
+          correocreacion:'',
+          contracreacion:'',
+          administrador:false,
           user:{
             loggedIn: false,
             data:{},
@@ -50,15 +61,24 @@ export default{
     },
 
     methods:{
-    /* administrar(){
-      if(this.userCredential.email== "cenitfran123@gmail.com"){
-        this.administrador=true;
-      }
-    },*/
+
+      administrar(){
+       if(this.user.data.uid== "E9dOhWXwJKSx2aQ6xBGA47u0xZP2"){
+          this.administrador=true;
+        }
+      },
+ 
+        crearSesionCorreo(){
+        autentificacion.crearUsuario(this.correocreacion, this.contracreacion)
+        this.correoinicio='';
+        this.contrainicio='';
+      },
+
       abrirSesionCorreo(){
-        autentificacion.loginCorreo(this.correo1, this.contra1)
-        this.correo1='';
-        this.contra1='';
+        autentificacion.loginCorreo(this.correoinicio, this.contrainicio)
+        this.correoinicio='';
+        this.contrainicio='';
+        this.administrar();
       },
  
       abrirSesionGoogle(){

@@ -2,12 +2,15 @@
         <div id="nav">
           <ul class="nav--links">
             <li><router-link to="/contenido">Contenido</router-link></li>
-            <li><router-link to="/navbar">Navbar</router-link></li>
+            <li><router-link to="/about">Sobre nosotros</router-link></li>
             <li><router-link to="/carrito">Carrito</router-link></li>
+            <li><router-link to="/prueba">Ver Prueba</router-link></li>
             <li v-if="administrador"><router-link to="/admin">Panel de administracion</router-link></li>
-            <li><router-link to="/login">Iniciar sesion</router-link></li>
+            <li v-if="!authenticated"><router-link to="/login">Iniciar sesion</router-link></li>
+
             <div v-if="authenticated" class="sesion">
               <button @click="cerrarSesion">Logout</button>
+
             </div>
           </ul>
         </div>
@@ -20,12 +23,12 @@ import autentificacion from '../db'
 export default {
   data() {
     return {
-      administrador:false,
+      administrador:true,
       juegos: [],
       user:{
         loggedIn: false,
         data:{},
-      }
+      },
     }
   },
 
@@ -34,14 +37,24 @@ export default {
         if (user) {
           this.user.loggedIn = true;
           this.user.data = user;
+          console.log(user+" console log del mounted");
         }
         else {
           this.user.loggedIn = false;
           this.user.data = {};
         }
       })
-  },
+
+
+},
     methods:{
+
+      administrar(){
+       if(this.user.data.uid== "E9dOhWXwJKSx2aQ6xBGA47u0xZP2"){
+          this.administrador=true;
+        }
+      },
+
     cerrarSesion(){
         autentificacion.logout();
         this.$notify({
@@ -84,6 +97,7 @@ export default {
 .sesion{
   display: flex;
   align-items: center;
+  margin-right: 1rem;
 }
 
 button{
@@ -91,6 +105,7 @@ button{
   padding: .1rem .1rem;
   margin: .3rem;
 }
+
 
 .nav--links li{
 padding:1.2rem;
