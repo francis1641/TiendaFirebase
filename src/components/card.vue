@@ -2,11 +2,12 @@
     <div class="card">
           <h3>{{ juego.Nombre }}</h3>
           <img v-bind:src="juego.Imagen">
+       
                     <p class="">{{juego.Descripcion}}</p>
                     <p class="">El precio es {{juego.Precio}}</p>
                     <p class="">Hay {{juego.Stock}} unidades</p>
-                    <button @click="addCarrito">Comprar</button>
-                    <input v-model="total" type="number" min="1" v-bind:max="juego.Stock">
+                    <button @click="addCarrito" v-if="mostrar>0">Comprar</button>
+                    <input v-model="total" v-if="mostrar && juego.Stock" type="number" min="0" v-bind:max="juego.Stock">
                     
     </div>
 
@@ -14,16 +15,32 @@
 
 <script>
 import { db } from '../db'
+import autentificacion from '../db'
 export default {
 
     name: 'contenido',
     props: ['juego'],
-    methods:{
-        data() {
+
+    mounted: function() {
+      autentificacion.auth.onAuthStateChanged( user => {
+      
+        if(user) {
+              console.log("Salta")
+            this.mostrar=true;
+        }else{
+            this.mostrar=false;
+        }
+
+      })
+    },
+
+        data() {    
             return {
+                mostrar:false
             }
         },
 
+    methods:{
         addCarrito(){
             db.collection("Carrito").doc("1").set({
                 nameArticulo: this.juego.Nombre,
@@ -36,13 +53,16 @@ export default {
             .catch((error) => {
                 console.error("Error writing document: ", error);
             });
-
         },
 
-/*        comprobarStock(){
-            if(juego.Stock==0)
-                nostock=true;
-        }*/
+ /*           comprobarStock(){
+                if(this.juego.Stock==0){
+                    this.stock1=true;
+                }
+                else{
+                    this.stock1=false;
+                }
+            }*/
     },
 
 

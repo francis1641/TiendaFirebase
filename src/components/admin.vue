@@ -8,6 +8,7 @@
 <script>
 import { db } from '../db'
 import card from './cardadmin.vue'
+import autentificacion from '../db'
 export default {
     data() {
         return {
@@ -16,6 +17,14 @@ export default {
     },
     components:{
         card
+    },
+      mounted: function() {
+        autentificacion.auth.onAuthStateChanged( user => {
+          if (!user || !autentificacion.esAdmin(user)) {
+                 this.$router.push('contenido');
+            
+          }
+        })
     },
     firestore: {
         juegos: db.collection('Games'),

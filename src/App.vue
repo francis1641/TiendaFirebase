@@ -3,6 +3,7 @@
     <div id="nav">
       <navbar/>
       <router-view/>
+<notifications group="foo" />
     </div>
   </div>
 </template>

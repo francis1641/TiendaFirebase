@@ -52,21 +52,23 @@ export default{
           if (user) {
             this.user.loggedIn = true;
             this.user.data = user;
+                 if(autentificacion.esAdmin(user)){
+                  console.log("esadmin");
+                this.$router.push('admin');
+                 }
+                 else{
+                   this.$router.push('contenido')
+                 }
           }
           else {
             this.user.loggedIn = false;
             this.user.data = {};
+
           }
         })
     },
 
     methods:{
-
-      administrar(){
-       if(this.user.data.uid== "E9dOhWXwJKSx2aQ6xBGA47u0xZP2"){
-          this.administrador=true;
-        }
-      },
  
         crearSesionCorreo(){
         autentificacion.crearUsuario(this.correocreacion, this.contracreacion)
@@ -78,7 +80,7 @@ export default{
         autentificacion.loginCorreo(this.correoinicio, this.contrainicio)
         this.correoinicio='';
         this.contrainicio='';
-        this.administrar();
+  
       },
  
       abrirSesionGoogle(){

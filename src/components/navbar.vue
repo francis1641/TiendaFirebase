@@ -23,7 +23,7 @@ import autentificacion from '../db'
 export default {
   data() {
     return {
-      administrador:true,
+      administrador:false,
       juegos: [],
       user:{
         loggedIn: false,
@@ -37,16 +37,16 @@ export default {
         if (user) {
           this.user.loggedIn = true;
           this.user.data = user;
-          console.log(user+" console log del mounted");
+          console.log(user);
+          this.administrar();
         }
         else {
           this.user.loggedIn = false;
           this.user.data = {};
+          this.administrador=false;
         }
       })
-
-
-},
+  },
     methods:{
 
       administrar(){

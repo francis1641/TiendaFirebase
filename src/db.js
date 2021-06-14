@@ -20,6 +20,13 @@ export const db = firebase
   export default {
     auth: firebase.auth(),
 
+    esAdmin(usuario){
+      if(usuario.uid== "E9dOhWXwJKSx2aQ6xBGA47u0xZP2"){
+        return true;
+       }
+       return false;
+     },
+
     crearUsuario(correo,contra) {
       let email = correo;
       let password = contra;
