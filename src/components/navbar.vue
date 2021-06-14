@@ -23,7 +23,6 @@ export default {
   data() {
     return {
       administrador:false,
-      juegos: [],
       user:{
         loggedIn: false,
         data:{},

@@ -21,11 +21,11 @@ export default {
     },
     methods:{
 
-        addCarrito(){
+        editCarrito(){
             db.collection("Games").doc("this.num").set({
-                nameArticulo: this.juego.Nombre,
-                Precio: this.juego.Precio,
-                Cantidad: this.cantidad,
+                nameArticulo: this.carritoart.Nombre,
+                Precio: this.carritoart.Precio,
+                Cantidad: this.carritoart.cantidad,
             })
             .then(() => {
                 console.log("Document successfully written!");

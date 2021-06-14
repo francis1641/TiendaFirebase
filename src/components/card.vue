@@ -79,10 +79,11 @@ export default {
     align-items: center;
     flex-direction: column;
     width: 33.33%;
-    background-color: rgba(0, 0, 0, 0.685);
+    flex-basis: 22rem;
+    background-color: rgba(42, 42, 42, 0.637);
     color: blanchedalmond;
     padding: 1.2rem;
-    margin: 0.2rem;
+    margin: 0.5rem;
 }
 
 </style>

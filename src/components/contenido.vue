@@ -37,5 +37,8 @@ export default {
 <style scoped>
 .contenido{
     display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    background-color: rgba(255, 255, 255, 0.993);
 }
 </style>
