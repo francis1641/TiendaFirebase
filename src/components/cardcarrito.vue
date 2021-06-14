@@ -3,7 +3,7 @@
           <h3>{{ carritoart.nameArticulo }}</h3>
         <p class="">El precio es {{carritoart.Precio}}</p>
         <p class="">Hay {{carritoart.Cantidad}} unidades</p>
-        <button v-on:click="eliminarCarrito">Eliminar producto</button>                  
+        <button @click="eliminarCarrito">Eliminar producto</button>                  
     </div>
 
 </template>
@@ -13,15 +13,39 @@ import { db } from '../db'
 export default {
 
     name: 'carrito',
-    props: ['carritoart'],
+    props: ['carritoart', 'carritoartid'],
     data() {
         return {
-            variable:1,
+            id: this.carritoartid,
         }
     },
     methods:{
+
+        addCarrito(){
+            db.collection("Games").doc("this.num").set({
+                nameArticulo: this.juego.Nombre,
+                Precio: this.juego.Precio,
+                Cantidad: this.cantidad,
+            })
+            .then(() => {
+                console.log("Document successfully written!");
+            })
+            .catch((error) => {
+                console.error("Error writing document: ", error);
+            });
+            this.num++;
+        },
+
         eliminarCarrito(){
-            db.collection("Carrito").doc(this.variable).delete().then(() => {
+            console.log("El id es "+this.id)
+            db.collection("Carrito").doc(this.id).delete().then(() => {
+                this.$notify({
+                    group: 'eliminar',
+                    type: 'warn',
+                    width:'300px',
+                    title: 'Important message',
+                    text: '¡Articulo eliminado del carrito!'
+                });
             console.log("Document successfully deleted!");
             }).catch((error) => {
             console.error("Error removing document: ", error);

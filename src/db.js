@@ -1,4 +1,5 @@
 import firebase from 'firebase/app'
+import Vue from 'vue'
 import 'firebase/firestore'
 import 'firebase/auth'
 
@@ -51,6 +52,14 @@ export const db = firebase
         .then((userCredential) => {
         let user = userCredential.user;
         console.log(user);
+
+        Vue.notify({
+          group: 'sesion',
+          title: 'Has iniciado sesion correctamente',
+          position: 'top center',
+          text: '¡Bienvenido!'
+        });
+
         })
       .catch(function(error){
       const errorCode = error.code;
@@ -68,6 +77,13 @@ export const db = firebase
       .then(function(result) {
         let user= result.user;
         console.log(user);
+
+        Vue.notify({
+          group: 'sesion',
+          title: 'Has iniciado sesion correctamente',
+          position: 'top center',
+          text: '¡Bienvenido!'
+        });
       })
       .catch(function(error){
         const errorCode = error.code;
@@ -83,6 +99,13 @@ export const db = firebase
       firebase.auth().signInWithPopup(providerFacebook)
       .then(function(result) {
         console.log(result);
+
+        Vue.notify({
+          group: 'sesion',
+          title: 'Has iniciado sesion correctamente',
+          position: 'top center',
+          text: '¡Bienvenido!'
+        });
       })
       .catch(function(error){
         const errorCode = error.code;

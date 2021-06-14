@@ -6,7 +6,7 @@
         <p class="">El precio es {{juego.Precio}}</p>
         <p class="">Hay {{juego.Stock}} unidades</p>
         <button @click="updateArticulos">Editar Datos</button>
-        <button>Eliminar productos</button>
+        <button @click="deleteArticulos">Eliminar productos</button>
     </div>
 
 </template>
@@ -14,12 +14,17 @@
 <script>
 import { db } from '../db'
 export default {
-    name: 'admin',
-    props: ['juego'],
+    name: 'admin',   
+    props: ['juego', 'juegoid'],
+    data(){
+        return{
+            id: this.juegoid
+        }
+    },
     methods:{
 
         updateArticulos(){
-            var articulo = db.collection("Games").doc("NOMBREDELCAMPO");
+            var articulo = db.collection("Games").doc();
             return articulo.update({
                 Cantidad: 5,
                 Stock: 20
@@ -32,8 +37,14 @@ export default {
                 console.error("Error updating document: ", error);
             });
         },
+
         deleteArticulos(){
-            db.collection("Games").doc("NOMBREDELCAMPO").delete().then(() => {
+            db.collection("Games").doc(this.id).delete().then(() => {
+                this.$notify({
+                    group: 'eliminar',
+                    title: 'Important message',
+                    text: 'Document successfully deleted!'
+                    });
                 console.log("Document successfully deleted!");
             }).catch((error) => {
                 console.error("Error removing document: ", error);

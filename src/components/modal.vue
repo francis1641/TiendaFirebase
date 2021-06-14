@@ -53,7 +53,6 @@ export default{
             this.user.loggedIn = true;
             this.user.data = user;
                  if(autentificacion.esAdmin(user)){
-                  console.log("esadmin");
                 this.$router.push('admin');
                  }
                  else{
@@ -80,6 +79,8 @@ export default{
         autentificacion.loginCorreo(this.correoinicio, this.contrainicio)
         this.correoinicio='';
         this.contrainicio='';
+
+
   
       },
  

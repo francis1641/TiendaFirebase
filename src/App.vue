@@ -3,7 +3,9 @@
     <div id="nav">
       <navbar/>
       <router-view/>
-<notifications group="foo" />
+  <notifications group="sesion" position="top center"/>
+  <notifications group="eliminar" position="top left" width="200" />
+
     </div>
   </div>
 </template>

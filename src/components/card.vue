@@ -6,8 +6,8 @@
                     <p class="">{{juego.Descripcion}}</p>
                     <p class="">El precio es {{juego.Precio}}</p>
                     <p class="">Hay {{juego.Stock}} unidades</p>
-                    <button @click="addCarrito" v-if="mostrar>0">Comprar</button>
-                    <input v-model="total" v-if="mostrar && juego.Stock" type="number" min="0" v-bind:max="juego.Stock">
+                    <button @click="addCarrito" v-if="mostrar" v-bind:disabled="btnmostrar" >Comprar</button>
+                    <input v-model="cantidad" v-if="mostrar && juego.Stock" type="number" min="1" v-bind:max="juego.Stock">
                     
     </div>
 
@@ -25,10 +25,11 @@ export default {
       autentificacion.auth.onAuthStateChanged( user => {
       
         if(user) {
-              console.log("Salta")
             this.mostrar=true;
+            this.comprobarStock();
         }else{
             this.mostrar=false;
+            this.btnmostrar=false;
         }
 
       })
@@ -36,16 +37,18 @@ export default {
 
         data() {    
             return {
-                mostrar:false
+                mostrar:false,
+                btnmostrar: false,
+                num:1
             }
         },
 
     methods:{
         addCarrito(){
-            db.collection("Carrito").doc("1").set({
+            db.collection("Carrito").doc("this.num").set({
                 nameArticulo: this.juego.Nombre,
                 Precio: this.juego.Precio,
-                Cantidad: this.total,
+                Cantidad: this.cantidad,
             })
             .then(() => {
                 console.log("Document successfully written!");
@@ -53,16 +56,17 @@ export default {
             .catch((error) => {
                 console.error("Error writing document: ", error);
             });
+            this.num++;
         },
 
- /*           comprobarStock(){
+             comprobarStock(){
                 if(this.juego.Stock==0){
-                    this.stock1=true;
+                    this.btnmostrar=true;
                 }
                 else{
-                    this.stock1=false;
+                    this.btnmostrar=false;
                 }
-            }*/
+            }
     },
 
 

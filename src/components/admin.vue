@@ -1,7 +1,7 @@
 <template>
     <div class="contenido">
         <button>Dar de alta nuevos productos</button>
-        <card v-for="game in juegos" v-bind:juego="game" v-bind:key="game.id"/>
+        <card v-for="game in juegos" v-bind:juego="game" v-bind:juegoid="game.id" v-bind:key="game.id"/>
       </div>
 </template>
 
