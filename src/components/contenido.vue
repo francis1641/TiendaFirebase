@@ -4,7 +4,7 @@
     <div class="contenido">
         <card v-for="game in juegos" v-bind:juego="game" v-bind:key="game.id"/>
       </div>
-      <img v-if="mostrar" src="./img/tiendaonline.jpg">
+      <img v-if="mostrar" src="./img/cargando.png" class="cargando">
     </div>
 </template>
 <script>
@@ -18,9 +18,7 @@ export default {
       mostrar:true,
     }
   },
-  beforeMount: function(){
-    this.mostrar=true;
-  },
+
   mounted:function(){
     this.mostrar=false;
   },
@@ -40,5 +38,9 @@ export default {
     flex-wrap: wrap;
     justify-content: space-around;
     background-color: rgba(255, 255, 255, 0.993);
+}
+
+.cargando{
+  height: 100vh;
 }
 </style>

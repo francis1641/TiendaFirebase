@@ -2,9 +2,9 @@
         <div id="nav">
           <ul class="nav--links">
             <li><router-link to="/contenido">Contenido</router-link></li>
-            <li><router-link to="/about">Sobre nosotros</router-link></li>
             <li><router-link to="/carrito">Carrito</router-link></li>
             <li v-if="administrador"><router-link to="/admin">Panel de administracion</router-link></li>
+            <li v-if="administrador"><router-link to="/creararticulo">Dar de alta nuevos productos</router-link></li>
             <li v-if="!authenticated"><router-link to="/login">Iniciar sesion</router-link></li>
 
             <div v-if="authenticated" class="sesion">

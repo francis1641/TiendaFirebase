@@ -7,7 +7,6 @@
                     <p class="">El precio es {{juego.Precio}}</p>
                     <p class="">Hay {{juego.Stock}} unidades</p>
                     <button @click="addCarrito" v-if="mostrar" v-bind:disabled="btnmostrar" >Comprar</button>
-                    <input v-model="cantidad" v-if="mostrar && juego.Stock" type="number" min="1" v-bind:max="juego.Stock">
                     
     </div>
 
@@ -23,8 +22,10 @@ export default {
 
     mounted: function() {
       autentificacion.auth.onAuthStateChanged( user => {
-      
+
         if(user) {
+            this.articuloId= this.juego.id;
+            this.uid= user.uid;
             this.mostrar=true;
             this.comprobarStock();
         }else{
@@ -35,28 +36,31 @@ export default {
       })
     },
 
-        data() {    
+        data() {
             return {
                 mostrar:false,
                 btnmostrar: false,
-                num:1
+                contador:0,
+                uid:"",
+                articuloId:"",
             }
         },
 
     methods:{
-        addCarrito(){
-            db.collection("Carrito").doc("this.num").set({
-                nameArticulo: this.juego.Nombre,
+  addCarrito(){
+            this.contador++;
+            db.collection(this.uid).doc(this.articuloId).set({
+                Nombre: this.juego.Nombre,
                 Precio: this.juego.Precio,
-                Cantidad: this.cantidad,
+                Cantidad: this.contador
             })
             .then(() => {
-                console.log("Document successfully written!");
+                console.log("Document written");
             })
             .catch((error) => {
-                console.error("Error writing document: ", error);
+                console.error("Error adding document: ", error);
             });
-            this.num++;
+
         },
 
              comprobarStock(){

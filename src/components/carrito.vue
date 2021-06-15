@@ -1,6 +1,5 @@
 <template>
     <div class="contenido">
-        <h3>El precio total es {{precioFinal}}</h3>
         <card v-for="articulo in carrito" v-bind:carritoart="articulo" v-bind:carritoartid="articulo.id" v-bind:key="articulo.id"/>
       </div>
 
@@ -25,12 +24,11 @@ export default {
     carrito: db.collection('Carrito'),
   },
   computed:{
-      precioTotal(){
-          return {
-              
-          }
-          
-      }
+      /*precioTotal(){
+        for(this.i=0; this.i<this.carrito.length; this.i++)
+          this.precioFinal+=this.carrito[i].Preciothis.carrito.Cantidad
+          return this.precioFinal;
+      }*/
   }
 }
 
